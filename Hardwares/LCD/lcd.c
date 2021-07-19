@@ -416,7 +416,7 @@ void LCD_Init() {
         HAL_Delay(120);
         LCD_WR_REG(0x29); //display on
     }
-    LCD_Display_Dir(0);
+    LCD_Display_Dir(1);
     HAL_GPIO_WritePin(LCD_BL_GPIO_Port, LCD_BL_Pin, GPIO_PIN_SET);
     LCD_Clear(WHITE);
 }
