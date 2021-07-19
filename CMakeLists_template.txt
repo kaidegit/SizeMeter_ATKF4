@@ -46,7 +46,7 @@ else ()
 endif ()
 
 include_directories(${includes}
-    Hardwares/LCD Hardwares/TOF Hardwares/PowerSensor
+    Hardwares/LCD Hardwares/TOF Hardwares/PowerSensor Hardwares/Touch
     Middlewares Middlewares/lvgl Middlewares/lvgl/generated Middlewares/lvgl/generated/guider_fonts
 )
 

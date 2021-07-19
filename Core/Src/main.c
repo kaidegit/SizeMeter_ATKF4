@@ -18,8 +18,8 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-
 #include "main.h"
+#include "i2c.h"
 #include "usart.h"
 #include "gpio.h"
 #include "fsmc.h"
@@ -31,9 +31,11 @@
 #include "PowerSensor.h"
 #include "stdio.h"
 #include <porting/lv_port_disp.h>
+#include "porting/lv_port_indev.h"
 #include <gui_guider.h>
 #include <events_init.h>
 #include "lvgl.h"
+#include "touch.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -103,19 +105,34 @@ int main(void) {
     MX_USART1_UART_Init();
     MX_USART2_UART_Init();
     MX_USART3_UART_Init();
+    MX_I2C1_Init();
     /* USER CODE BEGIN 2 */
     lv_init();
     lv_port_disp_init();
+    lv_port_indev_init();
     setup_ui(&guider_ui);
     events_init(&guider_ui);
+
+//    LCD_Init();
+//    TP_Init();
     /* USER CODE END 2 */
 
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "EndlessLoop"
     while (1) {
         lv_tick_inc(5);
         lv_task_handler();
         HAL_Delay(5);
+
+//        uint16_t x = pos.y;
+//        uint16_t y = 240 - pos.x;
+//        TP_Scan(0);
+//        if ((x != pos.x) || (y != pos.y)) {
+//            LCD_DrawPoint(x, y);
+//        }
+
 //        uint16_t tof_dis = TOF_GetDistance();
 //        LCD_ShowNum(10, 20, tof_dis, 5, 12);
 //        PS_GetShapeAndArea();
@@ -128,6 +145,7 @@ int main(void) {
 
         /* USER CODE BEGIN 3 */
     }
+#pragma clang diagnostic pop
     /* USER CODE END 3 */
 }
 
