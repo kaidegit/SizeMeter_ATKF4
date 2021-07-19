@@ -18,6 +18,7 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+
 #include "main.h"
 #include "usart.h"
 #include "gpio.h"
@@ -29,6 +30,10 @@
 #include "tof.h"
 #include "PowerSensor.h"
 #include "stdio.h"
+#include <porting/lv_port_disp.h>
+#include <gui_guider.h>
+#include <events_init.h>
+#include "lvgl.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -48,7 +53,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+lv_ui guider_ui;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -99,21 +104,26 @@ int main(void) {
     MX_USART2_UART_Init();
     MX_USART3_UART_Init();
     /* USER CODE BEGIN 2 */
-    HAL_Delay(200);
-    LCD_Init();
+    lv_init();
+    lv_port_disp_init();
+    setup_ui(&guider_ui);
+    events_init(&guider_ui);
     /* USER CODE END 2 */
 
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
     while (1) {
-        uint16_t tof_dis = TOF_GetDistance();
-        LCD_ShowNum(10, 20, tof_dis, 5, 12);
-        PS_GetShapeAndArea();
-        LCD_ShowNum(10, 30, (int) obj.color, 1, 12);
-        LCD_ShowNum(10, 40, (int) obj.shape, 1, 12);
-        LCD_ShowNum(10, 50, (int) obj.pixel, 4, 12);
-        printf("%d%d%d\r\n", obj.color, obj.shape, obj.pixel);
-        HAL_Delay(1000);
+        lv_tick_inc(5);
+        lv_task_handler();
+        HAL_Delay(5);
+//        uint16_t tof_dis = TOF_GetDistance();
+//        LCD_ShowNum(10, 20, tof_dis, 5, 12);
+//        PS_GetShapeAndArea();
+//        LCD_ShowNum(10, 30, (int) obj.color, 1, 12);
+//        LCD_ShowNum(10, 40, (int) obj.shape, 1, 12);
+//        LCD_ShowNum(10, 50, (int) obj.pixel, 4, 12);
+//        printf("%d%d%d\r\n", obj.color, obj.shape, obj.pixel);
+//        HAL_Delay(1000);
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */

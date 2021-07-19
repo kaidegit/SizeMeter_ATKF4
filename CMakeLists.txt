@@ -48,7 +48,7 @@ endif ()
 
 include_directories(Core/Inc Drivers/STM32F4xx_HAL_Driver/Inc Drivers/STM32F4xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F4xx/Include Drivers/CMSIS/Include
     Hardwares/LCD Hardwares/TOF Hardwares/PowerSensor
-    Middlewares/lvgl
+    Middlewares Middlewares/lvgl Middlewares/lvgl/generated Middlewares/lvgl/generated/guider_fonts
 )
 
 add_definitions(-DUSE_HAL_DRIVER -DSTM32F407xx)

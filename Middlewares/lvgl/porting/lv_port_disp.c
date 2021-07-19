@@ -4,13 +4,13 @@
  */
 
  /*Copy this file as "lv_port_disp.c" and set this value to "1" to enable content*/
-#if 0
+#if 1
 
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_port_disp_template.h"
-
+#include "lv_port_disp.h"
+#include "lcd.h"
 /*********************
  *      DEFINES
  *********************/
@@ -74,10 +74,10 @@ void lv_port_disp_init(void)
      *      copying the pixels.
      * */
 
-    /* Example for 1) */
-    static lv_disp_buf_t draw_buf_dsc_1;
-    static lv_color_t draw_buf_1[LV_HOR_RES_MAX * 10];                          /*A buffer for 10 rows*/
-    lv_disp_buf_init(&draw_buf_dsc_1, draw_buf_1, NULL, LV_HOR_RES_MAX * 10);   /*Initialize the display buffer*/
+//    /* Example for 1) */
+//    static lv_disp_buf_t draw_buf_dsc_1;
+//    static lv_color_t draw_buf_1[LV_HOR_RES_MAX * 10];                          /*A buffer for 10 rows*/
+//    lv_disp_buf_init(&draw_buf_dsc_1, draw_buf_1, NULL, LV_HOR_RES_MAX * 10);   /*Initialize the display buffer*/
 
     /* Example for 2) */
     static lv_disp_buf_t draw_buf_dsc_2;
@@ -85,11 +85,11 @@ void lv_port_disp_init(void)
     static lv_color_t draw_buf_2_2[LV_HOR_RES_MAX * 10];                        /*An other buffer for 10 rows*/
     lv_disp_buf_init(&draw_buf_dsc_2, draw_buf_2_1, draw_buf_2_2, LV_HOR_RES_MAX * 10);   /*Initialize the display buffer*/
 
-    /* Example for 3) */
-    static lv_disp_buf_t draw_buf_dsc_3;
-    static lv_color_t draw_buf_3_1[LV_HOR_RES_MAX * LV_VER_RES_MAX];            /*A screen sized buffer*/
-    static lv_color_t draw_buf_3_2[LV_HOR_RES_MAX * LV_VER_RES_MAX];            /*An other screen sized buffer*/
-    lv_disp_buf_init(&draw_buf_dsc_3, draw_buf_3_1, draw_buf_3_2, LV_HOR_RES_MAX * LV_VER_RES_MAX);   /*Initialize the display buffer*/
+//    /* Example for 3) */
+//    static lv_disp_buf_t draw_buf_dsc_3;
+//    static lv_color_t draw_buf_3_1[LV_HOR_RES_MAX * LV_VER_RES_MAX];            /*A screen sized buffer*/
+//    static lv_color_t draw_buf_3_2[LV_HOR_RES_MAX * LV_VER_RES_MAX];            /*An other screen sized buffer*/
+//    lv_disp_buf_init(&draw_buf_dsc_3, draw_buf_3_1, draw_buf_3_2, LV_HOR_RES_MAX * LV_VER_RES_MAX);   /*Initialize the display buffer*/
 
     /*-----------------------------------
      * Register the display in LVGL
@@ -101,14 +101,14 @@ void lv_port_disp_init(void)
     /*Set up the functions to access to your display*/
 
     /*Set the resolution of the display*/
-    disp_drv.hor_res = 480;
-    disp_drv.ver_res = 320;
+    disp_drv.hor_res = LV_HOR_RES_MAX;
+    disp_drv.ver_res = LV_VER_RES_MAX;
 
     /*Used to copy the buffer's content to the display*/
     disp_drv.flush_cb = disp_flush;
 
     /*Set a display buffer*/
-    disp_drv.buffer = &draw_buf_dsc_1;
+    disp_drv.buffer = &draw_buf_dsc_2;
 
 #if LV_USE_GPU
     /*Optionally add functions to access the GPU. (Only in buffered mode, LV_VDB_SIZE != 0)*/
@@ -131,6 +131,7 @@ void lv_port_disp_init(void)
 /* Initialize your display and the required peripherals. */
 static void disp_init(void)
 {
+    LCD_Init();
     /*You code here*/
 }
 
@@ -141,15 +142,16 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
 {
     /*The most simple case (but also the slowest) to put all pixels to the screen one-by-one*/
 
-    int32_t x;
-    int32_t y;
-    for(y = area->y1; y <= area->y2; y++) {
-        for(x = area->x1; x <= area->x2; x++) {
-            /* Put a pixel to the display. For example: */
-            /* put_px(x, y, *color_p)*/
-            color_p++;
-        }
-    }
+//    int32_t x;
+//    int32_t y;
+//    for(y = area->y1; y <= area->y2; y++) {
+//        for(x = area->x1; x <= area->x2; x++) {
+//            /* Put a pixel to the display. For example: */
+//            /* put_px(x, y, *color_p)*/
+//            color_p++;
+//        }
+//    }
+    LCD_ShowImage(area->x1,area->y1,area->x2,area->y2,&(color_p->full));
 
     /* IMPORTANT!!!
      * Inform the graphics library that you are ready with the flushing*/
