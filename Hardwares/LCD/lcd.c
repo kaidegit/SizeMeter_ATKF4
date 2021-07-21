@@ -216,6 +216,10 @@ void LCD_Color_Fill(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint16_t
     }
 }
 
+void LCD_Draw_FilledRect(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey) {
+    LCD_Color_Fill(sx, sy, ex, ey, POINT_COLOR);
+}
+
 void LCD_ShowImage(uint16_t x_start, uint16_t y_start, uint16_t x_end, uint16_t y_end, const uint16_t *color) {
     uint16_t height, width;
     uint16_t i, j;
@@ -306,6 +310,35 @@ void LCD_Draw_Circle(uint16_t x0, uint16_t y0, uint8_t r) {
             di += 10 + 4 * (a - b);
             b--;
         }
+    }
+}
+
+void LCD_Draw_FilledCircle(uint16_t x0, uint16_t y0, uint8_t r) {
+    int a, b;
+    int di;
+    a = 0;
+    b = r;
+    di = 3 - (r << 1);
+    while (a <= b) {
+        LCD_DrawLine(x0 + a, y0 - b, x0 + a, y0 + b);
+        LCD_DrawLine(x0 + b, y0 - a, x0 + b, y0 + a);
+        LCD_DrawLine(x0 - a, y0 + b, x0 - a, y0 - b);
+        LCD_DrawLine(x0 - b, y0 + a, x0 - b, y0 - a);
+        a++;
+        if (di < 0) {
+            di += 4 * a + 6;
+        } else {
+            di += 10 + 4 * (a - b);
+            b--;
+        }
+    }
+}
+
+void LCD_Draw_FilledRegTriangle(uint16_t x, uint16_t y, uint16_t a) {
+    uint16_t start_y = y - 1.732 / 3 * a;
+    uint16_t end_y = y + 1.732 / 6 * a;
+    for (uint16_t i = start_y; i < end_y; i++) {
+        LCD_DrawLine(x - (i - start_y) * 1.732 / 3, i, x + (i - start_y) * 1.732 / 3, i);
     }
 }
 

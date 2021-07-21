@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-#include "src/lv_font/lv_font.h"
+#include "lvgl/src/lv_font/lv_font.h"
 
 LV_FONT_DECLARE(lv_font_simsun_12)
 

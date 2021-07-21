@@ -25,6 +25,8 @@ void PS_UartHandler();
 
 void PS_GetShapeAndArea();
 
+void PS_Task();
+
 extern PS_Pack obj;
 
 #endif //SIZEMETER_POWERSENSOR_H

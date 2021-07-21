@@ -12,6 +12,8 @@ void TOF_UartHandler();
 
 uint16_t TOF_GetDistance();
 
+void TOF_Task();
+
 extern uint16_t distance;
 extern bool TOF_Busy;
 

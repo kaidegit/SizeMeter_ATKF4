@@ -5,6 +5,9 @@
 #include "tof.h"
 #include "usart.h"
 #include "string.h"
+#include "lvgl.h"
+#include "stdio.h"
+#include "gui_guider.h"
 
 const uint8_t TOF_Command[] = {0XA5, 0X15, 0XBA};
 
@@ -68,4 +71,13 @@ uint16_t TOF_GetDistance() {
     HAL_UART_Receive_IT(&huart2, &TOF_UartByte, 1);
     while (TOF_Busy && (cnt++ < 10000));
     return distance;
+}
+
+
+void TOF_Task(){
+    uint16_t dis = TOF_GetDistance();
+    lv_linemeter_set_value(guider_ui.screen_lmeter_1, dis);
+    char temp[30];
+    sprintf(temp,"%d",dis);
+    lv_label_set_text(guider_ui.screen_distance, temp);
 }

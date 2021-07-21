@@ -80,6 +80,8 @@ void LCD_Init();
 
 void LCD_Color_Fill(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint16_t color);
 
+void LCD_Draw_FilledRect(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey);
+
 void LCD_ShowImage(uint16_t x_start, uint16_t y_start, uint16_t x_end, uint16_t y_end, const uint16_t *color);
 
 void LCD_DrawPoint(uint16_t x, uint16_t y);
@@ -90,9 +92,13 @@ void LCD_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
 
 void LCD_Draw_Circle(uint16_t x0, uint16_t y0, uint8_t r);
 
+void LCD_Draw_FilledCircle(uint16_t x0, uint16_t y0, uint8_t r);
+
+void LCD_Draw_FilledRegTriangle(uint16_t x, uint16_t y, uint16_t a);
+
 void LCD_ShowNum(uint16_t x, uint16_t y, uint32_t num, uint8_t len, uint8_t size);
 
-extern uint16_t POINT_COLOR ;
+extern uint16_t POINT_COLOR;
 extern uint16_t BACK_COLOR;
 extern lcd_dev lcddev;
 

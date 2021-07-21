@@ -14,9 +14,12 @@ extern "C" {
 
 typedef struct
 {
-	lv_obj_t *screen;
-	lv_obj_t *screen_btn_1;
-	lv_obj_t *screen_btn_1_label;
+    lv_obj_t *screen;
+    lv_obj_t *screen_lmeter_1;
+    lv_obj_t *screen_label_1;
+    lv_obj_t *screen_distance;
+    lv_obj_t *screen_label_2;
+    lv_obj_t *screen_label_3;
 }lv_ui;
 
 void setup_ui(lv_ui *ui);

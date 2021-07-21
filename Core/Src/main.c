@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "i2c.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 #include "fsmc.h"
@@ -106,12 +107,17 @@ int main(void) {
     MX_USART2_UART_Init();
     MX_USART3_UART_Init();
     MX_I2C1_Init();
+    MX_TIM14_Init();
+    MX_TIM13_Init();
     /* USER CODE BEGIN 2 */
     lv_init();
     lv_port_disp_init();
     lv_port_indev_init();
     setup_ui(&guider_ui);
     events_init(&guider_ui);
+
+    HAL_TIM_Base_Start_IT(&htim13);
+    HAL_TIM_Base_Start_IT(&htim14);
 
 //    LCD_Init();
 //    TP_Init();
@@ -122,9 +128,9 @@ int main(void) {
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
     while (1) {
-        lv_tick_inc(5);
-        lv_task_handler();
-        HAL_Delay(5);
+//        lv_tick_inc(5);
+//        lv_task_handler();
+//        HAL_Delay(5);
 
 //        uint16_t x = pos.y;
 //        uint16_t y = 240 - pos.x;
@@ -134,13 +140,20 @@ int main(void) {
 //        }
 
 //        uint16_t tof_dis = TOF_GetDistance();
+//        char temp[30];
+//        lv_linemeter_set_value(guider_ui.screen_lmeter_1, tof_dis);
+//        sprintf(temp, "%d", tof_dis);
+//        lv_label_set_text(guider_ui.screen_distance, temp);
+//        printf("%d\r\n", tof_dis);
 //        LCD_ShowNum(10, 20, tof_dis, 5, 12);
 //        PS_GetShapeAndArea();
+//        sprintf(temp, "%d", obj.pixel);
+//        lv_label_set_text(guider_ui.screen_label_3, temp);
 //        LCD_ShowNum(10, 30, (int) obj.color, 1, 12);
 //        LCD_ShowNum(10, 40, (int) obj.shape, 1, 12);
 //        LCD_ShowNum(10, 50, (int) obj.pixel, 4, 12);
 //        printf("%d%d%d\r\n", obj.color, obj.shape, obj.pixel);
-//        HAL_Delay(1000);
+        HAL_Delay(1000);
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
@@ -195,6 +208,16 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
         TOF_UartHandler();
     } else if (huart->Instance == huart3.Instance) {
         PS_UartHandler();
+    }
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+    if (htim->Instance == htim14.Instance) {
+        lv_tick_inc(5);
+        lv_task_handler();
+    } else if (htim->Instance == htim13.Instance) {
+        TOF_Task();
+        PS_Task();
     }
 }
 /* USER CODE END 4 */
