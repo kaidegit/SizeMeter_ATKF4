@@ -47,7 +47,7 @@ else ()
 endif ()
 
 include_directories(Core/Inc Drivers/STM32F4xx_HAL_Driver/Inc Drivers/STM32F4xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F4xx/Include Drivers/CMSIS/Include
-    Hardwares/LCD Hardwares/TOF Hardwares/PowerSensor Hardwares/Touch
+    Hardwares/LCD Hardwares/TOF Hardwares/PowerSensor Hardwares/Touch Hardwares/StepMotor
     Middlewares Middlewares/lvgl Middlewares/lvgl/generated Middlewares/lvgl/generated/guider_fonts
 )
 

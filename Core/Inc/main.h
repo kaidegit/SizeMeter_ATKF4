@@ -76,10 +76,22 @@ void Error_Handler(void);
 #define PS_TX_GPIO_Port GPIOB
 #define LCD_BL_Pin GPIO_PIN_15
 #define LCD_BL_GPIO_Port GPIOB
+#define L_MOTOR_DIR_Pin GPIO_PIN_6
+#define L_MOTOR_DIR_GPIO_Port GPIOG
+#define H_MOTOR_DIR_Pin GPIO_PIN_7
+#define H_MOTOR_DIR_GPIO_Port GPIOG
+#define L_MOTOR_EN_Pin GPIO_PIN_8
+#define L_MOTOR_EN_GPIO_Port GPIOG
+#define L_MOTOR_Pin GPIO_PIN_8
+#define L_MOTOR_GPIO_Port GPIOC
+#define H_MOTOR_Pin GPIO_PIN_9
+#define H_MOTOR_GPIO_Port GPIOC
 #define DBG_TX_Pin GPIO_PIN_9
 #define DBG_TX_GPIO_Port GPIOA
 #define DBG_RX_Pin GPIO_PIN_10
 #define DBG_RX_GPIO_Port GPIOA
+#define H_MOTOR_EN_Pin GPIO_PIN_11
+#define H_MOTOR_EN_GPIO_Port GPIOA
 #define PS_RX_Pin GPIO_PIN_11
 #define PS_RX_GPIO_Port GPIOC
 /* USER CODE BEGIN Private defines */
